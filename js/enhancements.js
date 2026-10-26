@@ -337,19 +337,18 @@
 
     modal = document.createElement('div');
     modal.id = 'global-search-modal';
-    modal.className = 'fixed inset-0 z-50 bg-primary/80 backdrop-blur-md hidden items-start justify-center pt-24 px-4 sm:px-6';
+    modal.className = 'fixed inset-0 z-50 bg-[#0b1220]/45 backdrop-blur-sm hidden items-start justify-center pt-[13vh] px-4 sm:px-6';
     modal.innerHTML = [
-      '<div class="bg-surface-container-lowest max-w-xl w-full rounded-2xl shadow-2xl overflow-hidden border border-outline-variant/30 animate-in fade-in zoom-in-95 duration-150">',
-      '  <div class="p-space-md border-b border-surface-container-high flex items-center gap-space-sm">',
-      '    <span class="material-symbols-outlined text-secondary text-[24px]">search</span>',
-      '    <input type="text" id="global-search-input" placeholder="Cari tokoh, bab pertempuran, artefak pusaka..." class="w-full bg-transparent text-primary text-body-md font-body-md outline-none placeholder:text-on-surface-variant/60" autofocus autocomplete="off"/>',
-      '    <kbd class="hidden sm:inline-block px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-mono text-[11px]">ESC</kbd>',
+      '<div class="bg-white max-w-xl w-full rounded-2xl shadow-[0_30px_90px_-20px_rgba(13,24,41,0.55)] overflow-hidden">',
+      '  <div class="flex items-center gap-3 px-4 sm:px-5 py-3.5 border-b border-black/[0.07] bg-gradient-to-r from-[#FDC84B]/10 via-[#FDC84B]/[0.04] to-transparent">',
+      '    <span class="shrink-0 w-9 h-9 rounded-full bg-[#C17D11]/12 flex items-center justify-center"><span class="material-symbols-outlined text-[20px] text-[#C17D11]">search</span></span>',
+      '    <input type="text" id="global-search-input" placeholder="Cari tokoh, bab pertempuran, artefak pusaka..." class="w-full bg-transparent text-[15px] font-medium font-body-md text-on-surface outline-none placeholder:text-black/30 [caret-color:#C17D11]" autofocus autocomplete="off"/>',
+      '    <kbd class="hidden sm:block shrink-0 px-2 py-0.5 rounded-md border border-black/10 bg-black/[0.03] font-mono text-[10px] text-black/35">ESC</kbd>',
       '  </div>',
-      '  <div id="global-search-results" class="max-h-80 overflow-y-auto p-space-sm flex flex-col gap-1">',
-      '  </div>',
-      '  <div class="p-space-xs px-space-md bg-surface-container-low text-caption-meta text-on-surface-variant flex items-center justify-between border-t border-surface-container-high">',
+      '  <div id="global-search-results" class="max-h-[336px] overflow-y-auto p-2 flex flex-col gap-0.5"></div>',
+      '  <div class="flex items-center justify-between px-4 sm:px-5 py-2.5 border-t border-black/[0.07] font-body-md text-[11px] text-black/35">',
       '    <span>Gunakan ↑ / ↓ untuk navigasi, Enter untuk membuka</span>',
-      '    <span id="search-result-count">16 Arsip</span>',
+      '    <span id="search-result-count" class="shrink-0 whitespace-nowrap px-2.5 py-1 rounded-full bg-[#162035]/[0.05] font-semibold text-[10px] text-[#3d475e]">16 arsip</span>',
       '  </div>',
       '</div>'
     ].join('\n');
@@ -369,20 +368,24 @@
                item.cat.toLowerCase().includes(query);
       });
 
-      countBox.textContent = matches.length + ' Arsip';
+      countBox.textContent = matches.length + ' arsip';
       if (!matches.length) {
-        resultsBox.innerHTML = '<div class="py-8 text-center text-on-surface-variant text-body-sm">Tidak ada arsip yang cocok dengan "<b>' + query + '</b>"</div>';
+        resultsBox.innerHTML = '<div class="py-10 text-center font-body-md text-[13px] text-black/40">Tidak ada arsip yang cocok dengan "<b>' + query + '</b>"</div>';
         return;
       }
 
       resultsBox.innerHTML = matches.map(function (item, idx) {
+        var isFirst = idx === 0;
         return [
-          '<a href="' + item.url + '" class="search-result-item p-space-sm rounded-lg hover:bg-surface-container transition-colors flex flex-col gap-0.5 group cursor-pointer ' + (idx === 0 ? 'bg-surface-container/50' : '') + '">',
-          '  <div class="flex items-center justify-between">',
-          '    <span class="font-title-editorial text-primary group-hover:text-secondary font-bold text-sm">' + item.title + '</span>',
-          '    <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-secondary-container/40 text-on-secondary-container font-label-caps">' + item.cat + '</span>',
+          '<a href="' + item.url + '" class="search-result-item group flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors cursor-pointer ' + (isFirst ? 'bg-[#162035]/[0.055]' : 'hover:bg-black/[0.035]') + '">',
+          '  <div class="min-w-0 flex-1">',
+          '    <div class="flex items-baseline gap-2">',
+          '      <span class="font-body-md font-semibold text-[14px] leading-snug text-on-surface group-hover:text-[#C17D11] transition-colors truncate">' + item.title + '</span>',
+          '      <span class="hidden sm:inline shrink-0 px-2 py-[3px] rounded-full bg-[#C17D11]/[0.09] text-[#9B6400] text-[9px] font-bold uppercase tracking-[0.12em] whitespace-nowrap">' + item.cat + '</span>',
+          '    </div>',
+          '    <p class="font-body-md text-[12px] leading-snug text-black/40 truncate mt-0.5">' + item.desc + '</p>',
           '  </div>',
-          '  <p class="font-body-sm text-xs text-on-surface-variant line-clamp-1">' + item.desc + '</p>',
+          '  <span class="material-symbols-outlined text-[18px] shrink-0 transition-opacity ' + (isFirst ? 'text-[#C17D11] opacity-100' : 'text-black/25 opacity-0 group-hover:opacity-100') + '">arrow_forward</span>',
           '</a>'
         ].join('\n');
       }).join('\n');

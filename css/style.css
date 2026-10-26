@@ -898,11 +898,14 @@ img, svg, video, canvas {
 @media (max-width: 640px) {
   #artifact-modal > div,
   #bio-modal > div,
-  #glossary-panel,
-  #global-search-modal > div {
+  #glossary-panel {
     padding: 16px !important;
     max-width: 100% !important;
   }
+  /* Search palette: panel tanpa padding global (baris punya padding sendiri);
+     hanya rapatkan jarak-muncul & lebar */
+  #global-search-modal > div { max-width: 100% !important; }
+  #global-search-modal { padding-top: 9vh !important; }
   #artifact-modal { padding: 12px !important; }
   #bio-modal { padding: 12px !important; }
   /* tombol tutup modal tidak menutupi judul */
@@ -915,5 +918,37 @@ img, svg, video, canvas {
   /* Caption/metrik footer peta tidak saling bertabrakan */
   #peta-wrap { touch-action: pan-y; }
 }
+
+/* Global search palette (command palette): mikro-animasi muncul + pecah caret.
+   Panel dibangun di js/enhancements.js; blok ini sekadar polish visual. */
+#global-search-modal > div {
+  animation: searchPop 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes searchPop {
+  from { opacity: 0; transform: translateY(10px) scale(0.985); }
+  to   { opacity: 1; transform: none; }
+}
+/* scrollbar daftar hasil: tipis & netral, khas palette modern */
+#global-search-results::-webkit-scrollbar { width: 8px; }
+#global-search-results::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  border: 2px solid #fff;
+}
+/* fading edge: baris terpotong di dasar daftar memudar halus (ala Spotlight),
+   alih-alih memunculkan serpihan pill/teks di batas max-height */
+#global-search-results {
+  mask-image: linear-gradient(to bottom, #000 0, #000 calc(100% - 16px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 calc(100% - 16px), transparent 100%);
+}
+/* baris hasil bukan kartu: retint .rounded-xl beri border — palette daftar tak butuh */
+#global-search-results a.search-result-item { border: none !important; }
+/* baris aktif (pertama): indikator kiri emas, bahasa aksen yang sama dengan situs */
+#global-search-results a.search-result-item:first-child {
+  box-shadow: inset 3px 0 0 0 #FDC84B;
+}
+/* fokus input palette tetap tenang: caret emas + lingkaran ikon sudah jadi penanda;
+   outline retint 2.5px/offset 3px terlihat berat di palette kecil */
+#global-search-input:focus-visible { outline: none !important; }
 
 
