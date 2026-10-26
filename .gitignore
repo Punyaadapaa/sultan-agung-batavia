@@ -1,0 +1,16 @@
+# Dependensi & build artifacts
+node_modules/
+dist/
+.output/
+
+# Editor & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+
+# Sementara / lokal
+*.tmp
+*.bak

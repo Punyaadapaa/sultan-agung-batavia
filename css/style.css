@@ -1,0 +1,877 @@
+/* Gaya visual dan animasi pelengkap website */
+
+/* 1. READING PROGRESS BAR */
+#reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, #805600 0%, #fdbe59 50%, #ffddb0 100%);
+  z-index: 9999;
+  transition: width 0.1s linear;
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 8px rgba(128, 86, 0, 0.4);
+}
+
+/* 2. HEADER SCROLL GLASSMORPHISM */
+header {
+  transition: background-color 0.4s ease, backdrop-filter 0.4s ease,
+              box-shadow 0.4s ease, border-bottom-color 0.4s ease;
+  border-bottom: 1px solid transparent;
+}
+
+header.scrolled {
+  background-color: rgba(22, 32, 53, 0.88) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.18), 0 1px 0 rgba(253, 190, 89, 0.12) !important;
+  border-bottom-color: rgba(253, 190, 89, 0.15);
+}
+
+/* 3. SCROLL-REVEAL ANIMATIONS (triggered by JS via class) */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-reveal].revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays for child elements */
+[data-reveal-stagger] > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-reveal-stagger].revealed > *:nth-child(1) { transition-delay: 0.05s; opacity: 1; transform: none; }
+[data-reveal-stagger].revealed > *:nth-child(2) { transition-delay: 0.13s; opacity: 1; transform: none; }
+[data-reveal-stagger].revealed > *:nth-child(3) { transition-delay: 0.21s; opacity: 1; transform: none; }
+[data-reveal-stagger].revealed > *:nth-child(4) { transition-delay: 0.29s; opacity: 1; transform: none; }
+[data-reveal-stagger].revealed > *:nth-child(5) { transition-delay: 0.37s; opacity: 1; transform: none; }
+[data-reveal-stagger].revealed > *:nth-child(6) { transition-delay: 0.45s; opacity: 1; transform: none; }
+
+/* Slide-in from left */
+[data-reveal="left"] {
+  transform: translateX(-32px);
+}
+[data-reveal="left"].revealed {
+  transform: translateX(0);
+}
+
+/* Slide-in from right */
+[data-reveal="right"] {
+  transform: translateX(32px);
+}
+[data-reveal="right"].revealed {
+  transform: translateX(0);
+}
+
+/* Scale up */
+[data-reveal="scale"] {
+  transform: scale(0.94);
+  opacity: 0;
+}
+[data-reveal="scale"].revealed {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* 4. PREMIUM CARD HOVER (3D tilt + glow) */
+.card-premium {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.card-premium:hover {
+  transform: translateY(-6px) rotateX(1.5deg) rotateY(-1deg);
+  box-shadow: 0 24px 48px -12px rgba(22, 32, 53, 0.22),
+              0 8px 16px -4px rgba(22, 32, 53, 0.12),
+              0 0 0 1px rgba(253, 190, 89, 0.15);
+}
+
+/* 5. STAT COUNTER — animated number roll */
+.stat-number {
+  font-variant-numeric: tabular-nums;
+  transition: color 0.3s ease;
+}
+
+/* 6. GRAIN TEXTURE OVERLAY (premium museum feel) */
+.grain-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.032;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  background-repeat: repeat;
+}
+
+/* 7. SECTION DIVIDERS — elegant ruled lines */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0 auto;
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(128, 86, 0, 0.25), transparent);
+}
+
+.section-divider-icon {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #805600;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+/* 8. LINK UNDERLINE ANIMATION */
+.link-animated {
+  position: relative;
+  text-decoration: none;
+}
+
+.link-animated::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: #805600;
+  border-radius: 1px;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.link-animated:hover::after {
+  width: 100%;
+}
+
+/* 9. BADGE SHIMMER EFFECT */
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.badge-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.badge-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 221, 176, 0.4) 50%,
+    transparent 70%
+  );
+  background-size: 400px 100%;
+  animation: shimmer 3.5s infinite;
+}
+
+/* 10. CUSTOM SCROLLBAR (desktop only) */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    display: block !important;
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(128, 86, 0, 0.22);
+    border-radius: 999px;
+    transition: background 0.2s;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 86, 0, 0.45);
+  }
+}
+
+/* 11. HERO SECTION DECORATIVE ORBITS */
+@keyframes orbit-slow {
+  from { transform: rotate(0deg) translateX(180px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(180px) rotate(-360deg); }
+}
+
+@keyframes orbit-reverse {
+  from { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+  to   { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+}
+
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-10px); }
+}
+
+.float-gentle {
+  animation: float-gentle 6s ease-in-out infinite;
+}
+
+/* 12. PAGE TRANSITION FADE */
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+/* CATATAN PENTING: animasi main TANPA fill-mode forwards.
+   Sebelumnya 'forwards' meninggalkan transform permanen pada <main>, dan transform
+   apa pun menjadikan <main> "containing block" → semua modal position:fixed di dalam
+   main (artefak, bio, glosarium) dihitung relatif dokumen, bukan viewport, sehingga
+   posisinya melenceng & kontennya seperti "dipotong" saat layar digulir. */
+main {
+  animation: pageFadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 13. INTERACTIVE TABLE OF CONTENTS HIGHLIGHT */
+.toc-link {
+  position: relative;
+  transition: color 0.2s, padding-left 0.2s;
+}
+
+.toc-link.active {
+  color: #805600;
+  padding-left: 12px;
+}
+
+.toc-link.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 16px;
+  background: #fdbe59;
+  border-radius: 2px;
+}
+
+/* 14. SECTION EYEBROW LABEL */
+.eyebrow-accent {
+  position: relative;
+  padding-left: 14px;
+}
+
+.eyebrow-accent::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 14px;
+  background: linear-gradient(180deg, #fdbe59 0%, #805600 100%);
+  border-radius: 2px;
+}
+
+/* 15. FOCUS VISIBLE — accessible keyboard focus ring */
+:focus-visible {
+  outline: 2.5px solid #fdbe59;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* 16. IMAGE HOVER ZOOM within cards */
+.img-zoom-container {
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.img-zoom-container img {
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.img-zoom-container:hover img {
+  transform: scale(1.06);
+}
+
+/* 17. GRADIENT BORDER CARD */
+.gradient-border {
+  position: relative;
+  background: white;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(253,190,89,0.6) 0%, rgba(128,86,0,0.08) 50%, rgba(253,190,89,0.3) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* 18. SKELETON LOADING PULSE */
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #e7e9e5 25%, #edeeea 50%, #e7e9e5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: 6px;
+}
+
+/* 19. TOOLTIP PREMIUM */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  background: #162035;
+  color: #ffddb0;
+  font-size: 0.6875rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 5px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+[data-tooltip]:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+/* 20. MOBILE TOUCH HIGHLIGHT REMOVAL */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 21. SELECTION STYLE */
+::selection {
+  background: rgba(253, 190, 89, 0.35);
+  color: #162035;
+}
+
+/* 22. AMBIENT GRADIENT BG for hero sections */
+.hero-ambient {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-ambient::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  left: -10%;
+  width: 60%;
+  height: 160%;
+  background: radial-gradient(ellipse, rgba(253, 190, 89, 0.08) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-ambient::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  right: -10%;
+  width: 50%;
+  height: 120%;
+  background: radial-gradient(ellipse, rgba(22, 32, 53, 0.06) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 23. SECTION HEADING HIGHLIGHT UNDERLINE */
+.heading-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.heading-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 40%;
+  height: 3px;
+  background: linear-gradient(90deg, #fdbe59, transparent);
+  border-radius: 2px;
+}
+
+/* 24. NAV ACTIVE STATE ANIMATION */
+nav a {
+  position: relative;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+/* 25. BUTTON PRESS FEEDBACK */
+button, a[role="button"], .btn {
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+button:active, a[role="button"]:active {
+  transform: scale(0.97);
+}
+
+/* 26. ANIMATED GOLD PULSE DOT */
+@keyframes gold-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(253, 190, 89, 0.5); }
+  50% { opacity: 0.8; transform: scale(1.15); box-shadow: 0 0 0 6px rgba(253, 190, 89, 0); }
+}
+
+.pulse-gold {
+  animation: gold-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* 27. TABLE PREMIUM STYLING */
+.table-premium {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.table-premium th {
+  background: #162035;
+  color: #ffddb0;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 10px 16px;
+  font-weight: 600;
+}
+
+.table-premium td {
+  padding: 10px 16px;
+  border-bottom: 1px solid #e2e3df;
+  font-size: 0.875rem;
+  color: #45464d;
+}
+
+.table-premium tr:hover td {
+  background: #f3f4f0;
+  color: #1a1c1a;
+}
+
+/* 28. REDUCED MOTION SUPPORT */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-reveal-stagger] > *,
+  .card-premium,
+  .float-gentle,
+  .badge-shimmer::after,
+  main {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Penyesuaian kontras dan palet warna */
+
+/* A. DESIGN TOKEN OVERRIDES */
+:root {
+  --c-gold:       #C17D11;   /* text-on-light gold */
+  --c-gold-mid:   #F5A623;   /* vivid accent gold  */
+  --c-gold-soft:  #FDC84B;   /* soft warm gold     */
+  --c-gold-pale:  #FFF3D0;   /* tint background    */
+  --c-navy-deep:  #0D1829;   /* deepest navy       */
+  --c-navy:       #162035;   /* standard navy      */
+  --c-navy-soft:  #8A9BBF;   /* readable on dark   */
+  --c-ink:        #18191A;   /* richest body text  */
+  --c-ink-mid:    #3A3B40;   /* secondary text     */
+  --c-ink-light:  #6A6B73;   /* caption/meta       */
+  --c-paper:      #F8F7F2;   /* warm white bg      */
+}
+
+/* B. HEADER NAV — better readability */
+header nav a:not([aria-current="page"]) {
+  color: rgba(255, 255, 255, 0.70) !important;
+}
+header nav a:not([aria-current="page"]):hover {
+  color: #fff !important;
+  background: rgba(255,255,255,0.10) !important;
+}
+header nav a[aria-current="page"] {
+  color: #FDC84B !important;
+  background: rgba(255,255,255,0.12) !important;
+}
+header span.text-on-primary-container {
+  color: rgba(178, 192, 216, 0.90) !important;
+}
+
+/* C. MAIN BODY TEXT — richer ink */
+body {
+  color: var(--c-ink);
+}
+.text-on-surface-variant {
+  color: var(--c-ink-mid) !important;
+}
+.text-caption-meta, [class*="caption-meta"] {
+  color: var(--c-ink-light) !important;
+}
+
+/* D. HERO h1 & GOLD ACCENTS */
+main h1 { color: var(--c-navy-deep) !important; }
+main h1 span.text-secondary,
+main h1 span.italic { color: var(--c-gold) !important; }
+
+/* Gold secondary color across the board */
+.text-secondary { color: var(--c-gold) !important; }
+
+/* E. GOLD BADGES & CHIPS */
+.bg-secondary-container {
+  background-color: #C17D11 !important;
+  color: #fff !important;
+}
+.text-on-secondary-container { color: #fff !important; }
+/* Translucent badge variant */
+[class*="bg-secondary-container\/"] {
+  background-color: rgba(193,125,17,0.14) !important;
+  border: 1px solid rgba(193,125,17,0.22) !important;
+}
+[class*="bg-secondary-container\/"] [class*="text-on-secondary-container"],
+[class*="bg-secondary-container\/"] span {
+  color: #7A4800 !important;
+}
+
+/* F. PRIMARY HEADINGS */
+.text-primary { color: var(--c-navy-deep) !important; }
+.text-on-primary { color: #FFFFFF !important; }
+
+/* G. SECTION BACKGROUNDS — warmer paper */
+.bg-surface                { background-color: #FAFAF6 !important; }
+.bg-background             { background-color: #F8F7F2 !important; }
+.bg-surface-container-low  { background-color: #F4F1EA !important; }
+.bg-surface-container      { background-color: #ECEAE2 !important; }
+.bg-surface-container-high { background-color: #E5E2D8 !important; }
+.bg-surface-container-highest { background-color: #DDDAD0 !important; }
+.bg-surface-container-lowest { background-color: #FFFFFF !important; }
+
+/* H. VOC DARK CARD — critical contrast fixes */
+.bg-primary-container {
+  background-color: #0F1D33 !important;
+}
+.bg-primary-container h2,
+.bg-primary-container h3,
+.bg-primary-container .text-on-primary { color: #FFFFFF !important; }
+
+/* All text inside dark navy card needs to be light */
+.bg-primary-container p,
+.bg-primary-container li,
+.bg-primary-container .text-on-primary-container {
+  color: rgba(197, 210, 230, 0.88) !important;
+}
+
+/* Nested light boxes inside dark card */
+.bg-primary-container [class*="bg-surface-container-lowest"] p,
+.bg-primary-container [class*="bg-surface-container-lowest"] span:not(.material-symbols-outlined) {
+  color: rgba(180, 196, 218, 0.85) !important;
+}
+.bg-primary-container [class*="bg-surface-container-lowest"] .font-bold,
+.bg-primary-container [class*="bg-surface-container-lowest"] [class*="font-bold"] {
+  color: #C5D4E8 !important;
+}
+
+/* Icons inside dark card */
+.bg-primary-container .material-symbols-outlined { color: #FDC84B !important; }
+.bg-primary-container [class*="label-caps"]        { color: #FDC84B !important; }
+.bg-primary-container .text-secondary-fixed        { color: #FDC84B !important; }
+
+/* Nested dark-ish sub-boxes inside navy card */
+.bg-primary-container [class*="bg-surface-container-lowest\/"] {
+  background-color: rgba(255,255,255,0.06) !important;
+}
+
+/* I. CARD BORDERS — defined edges */
+.rounded-xl, .rounded-2xl {
+  border: 1px solid rgba(0,0,0,0.07);
+}
+.bg-primary-container.rounded-xl {
+  border-color: rgba(255,255,255,0.08) !important;
+}
+
+/* J. FOOTER */
+footer { background-color: #1A1F2C !important; }
+footer * { color: rgba(197, 210, 230, 0.80) !important; }
+footer h3, footer .text-secondary { color: #FDC84B !important; }
+footer a:hover { color: #fff !important; }
+footer .bg-secondary-container {
+  background-color: rgba(193,125,17,0.20) !important;
+  color: #FDC84B !important;
+  border: 1px solid rgba(193,125,17,0.30) !important;
+}
+
+/* K. DARK SIMULATOR (uji.html) — panel text */
+.bg-primary .text-on-primary,
+.bg-primary h2, .bg-primary h3 { color: #FFFFFF !important; }
+.bg-primary p,
+.bg-primary span:not(.material-symbols-outlined) { color: rgba(197,210,230,0.88) !important; }
+.bg-primary .text-secondary-fixed { color: #FDC84B !important; }
+
+/* L. SCROLLED HEADER glass tint */
+header.scrolled {
+  background-color: rgba(13,24,41,0.94) !important;
+  border-bottom-color: rgba(253,200,75,0.20) !important;
+}
+
+/* M. MOBILE DRAWER */
+#mobile-menu-drawer {
+  background-color: #0D1829 !important;
+  border-top-color: rgba(253,200,75,0.15) !important;
+}
+#mobile-menu-drawer a:not([aria-current="page"]) {
+  color: rgba(255,255,255,0.78) !important;
+}
+#mobile-menu-drawer a[aria-current="page"] { color: #FDC84B !important; }
+
+/* N. WARISAN HERITAGE ARTIFACTS */
+.text-secondary.font-bold { color: var(--c-gold) !important; }
+
+/* O. TIMELINE / PERANG module labels on dark bg */
+.bg-primary-container [class*="label-caps"] { color: #FDC84B !important; }
+
+/* P. MATERIAL ICONS — secondary = gold */
+.material-symbols-outlined.text-secondary { color: var(--c-gold) !important; }
+
+/* Q. LINK in body */
+main a:not([class]) {
+  color: var(--c-gold);
+  text-decoration-color: rgba(193,125,17,0.35);
+  text-underline-offset: 3px;
+}
+main a:not([class]):hover { color: #9B6400; }
+
+/* R. FOCUS & SELECTION */
+:focus-visible {
+  outline: 2.5px solid #C17D11 !important;
+  outline-offset: 3px;
+}
+::selection {
+  background: rgba(193,125,17,0.25) !important;
+  color: var(--c-navy-deep) !important;
+}
+
+/* S. EYEBROW section label accent */
+.text-on-primary-container[class*="label-caps"] { color: #FDC84B !important; }
+
+/* T. HERITAGE section gradient */
+section.bg-surface-container-low {
+  background: linear-gradient(175deg, #F4F1EA 0%, #EDE9DE 100%) !important;
+}
+
+/* U. NUCLEAR FIX — any element inside dark navy container gets readable text */
+/* This covers dynamically-applied Tailwind classes that CSS specificity misses */
+.bg-primary-container * {
+  color: rgba(197, 210, 230, 0.88);
+}
+.bg-primary-container *:is(h1,h2,h3,h4,h5,strong,.font-bold,[class*="font-bold"]) {
+  color: #FFFFFF;
+}
+.bg-primary-container *:is([class*="label-caps"],[class*="text-secondary"],[class*="text-secondary-fixed"]) {
+  color: #FDC84B;
+}
+.bg-primary-container *:is(.material-symbols-outlined) {
+  color: #FDC84B;
+}
+
+/* Mataram light card — prevent bleed */
+.bg-surface-container-lowest * {
+  color: inherit;
+}
+
+/* V. QUOTE BLOCK NUMBERS — vivid gold */
+.text-headline-lg.text-secondary,
+.font-headline-lg.text-secondary {
+  color: #F5A623 !important;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+/* W. HERO BUTTON — stronger orange-gold */
+a[href="#peta-strategis"],
+a.bg-secondary-container {
+  background: linear-gradient(135deg, #C17D11 0%, #A86A0C 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 16px rgba(168, 106, 12, 0.35) !important;
+}
+a[href="#peta-strategis"]:hover,
+a.bg-secondary-container:hover {
+  background: linear-gradient(135deg, #A86A0C 0%, #8E5809 100%) !important;
+  box-shadow: 0 6px 24px rgba(168, 106, 12, 0.45) !important;
+}
+
+/* X. GLOBAL OVERFLOW DAN RESPONSIVE VIEWPORT FIX */
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+  position: relative;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Header container safety */
+header > div {
+  width: 100% !important;
+  max-width: 1440px !important;
+  padding-left: clamp(16px, 3vw, 48px) !important;
+  padding-right: clamp(16px, 3vw, 48px) !important;
+}
+
+/* Header nav link spacing */
+header nav {
+  gap: clamp(4px, 1vw, 12px) !important;
+}
+
+header nav a {
+  padding-left: clamp(8px, 1vw, 16px) !important;
+  padding-right: clamp(8px, 1vw, 16px) !important;
+}
+
+/* Hero Section and Main Containers responsiveness */
+.max-w-\[1440px\] {
+  width: 100% !important;
+  max-width: 1440px !important;
+  padding-left: clamp(16px, 3vw, 48px) !important;
+  padding-right: clamp(16px, 3vw, 48px) !important;
+}
+
+/* Ensure images and media do not cause horizontal expansion */
+img, svg, video, canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Y. MOBILE-FIT (semua ukuran HP 320px ke atas) — dioptimalkan: hamburger WAJIB muat */
+@media (max-width: 480px) {
+  /* Header: rapatkan agar cluster kanan (cari + menu) selalu berada di dalam layar.
+     CATATAN: hanya bar atas (div pertama) — div kedua di header adalah drawer menu,
+     jangan dipangkas. */
+  header > div:first-child {
+    height: 68px;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    gap: 6px !important;
+  }
+  header > div > div.shrink-0 { gap: 6px !important; }
+  header .flex.items-center.gap-space-sm > div + div { gap: 6px; }
+
+  /* Blok brand boleh dikecilkan: logo lebih ramping, teks menyusut */
+  header .flex.items-center.gap-space-md.shrink-0 {
+    min-width: 0 !important;
+    gap: 8px !important;
+  }
+  header .flex.items-center.gap-space-md.shrink-0 .p-space-xs.rounded-full {
+    padding: 2px !important;
+  }
+  header .flex.items-center.gap-space-md.shrink-0 img {
+    width: 26px !important;
+    height: 26px !important;
+  }
+  header .font-title-editorial {
+    font-size: 15px !important;
+    line-height: 1.15 !important;
+    letter-spacing: 0;
+  }
+  header .font-caption-meta {
+    font-size: 9px !important;
+    letter-spacing: 0.06em !important;
+  }
+}
+/* HP sempit (di bawah 420px): judul brand boleh bungkus 2 baris supaya
+   tombol cari + hamburger (total ~100px) tidak terdorong keluar layar */
+@media (max-width: 420px) {
+  header .font-title-editorial,
+  header .font-caption-meta {
+    white-space: normal !important;
+  }
+  header .font-title-editorial {
+    max-width: 150px !important;
+  }
+  header .font-caption-meta {
+    max-width: 150px !important;
+  }
+  /* tombol cari & hamburger tetap >= 40px nyaman disentuh */
+  #btn-mobile-menu, [aria-label="Pencarian Arsip Historis"] {
+    min-width: 40px;
+    min-height: 40px;
+  }
+}
+
+/* Peta beranda di mobile: panel layer & kontrol zoom lebih ramping,
+   supaya tidak menutupi terlalu banyak area peta */
+@media (max-width: 640px) {
+  #peta-wrap { height: min(64vh, 480px) !important; }
+  #peta-wrap .sp-layer {
+    font-size: 10px;
+    padding: 5px 8px;
+    left: 8px;
+    top: 8px;
+    max-width: 58%;
+    white-space: nowrap;
+    opacity: 0.94;
+  }
+  #peta-wrap .sp-layer label { padding: 3px 0; gap: 4px; touch-action: manipulation; }
+  #peta-wrap .sp-ctl { right: 8px; top: 8px; gap: 5px; }
+  #peta-wrap .sp-ctl button { width: 34px; height: 34px; font-size: 16px; border-radius: 7px; }
+  #peta-wrap .sp-sc { font-size: 10px; left: 8px; bottom: 8px; }
+  #peta-wrap svg text { stroke-width: 4px; }
+}
+
+/* Modal & drawer konten di mobile lebih ramping: padding andalan berkurang,
+   konten tetap dapat digulir penuh */
+@media (max-width: 640px) {
+  #artifact-modal > div,
+  #bio-modal > div,
+  #glossary-panel,
+  #global-search-modal > div {
+    padding: 16px !important;
+    max-width: 100% !important;
+  }
+  #artifact-modal { padding: 12px !important; }
+  #bio-modal { padding: 12px !important; }
+  /* tombol tutup modal tidak menutupi judul */
+  #artifact-modal > button,
+  #bio-modal > button {
+    top: 8px !important;
+    right: 8px !important;
+    z-index: 2;
+  }
+  /* Caption/metrik footer peta tidak saling bertabrakan */
+  #peta-wrap { touch-action: pan-y; }
+}
+
+
