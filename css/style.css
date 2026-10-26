@@ -623,15 +623,57 @@ main h1 span.italic { color: var(--c-gold) !important; }
   border-color: rgba(255,255,255,0.08) !important;
 }
 
-/* J. FOOTER */
-footer { background-color: #1A1F2C !important; }
-footer * { color: rgba(197, 210, 230, 0.80) !important; }
-footer h3, footer .text-secondary { color: #FDC84B !important; }
-footer a:hover { color: #fff !important; }
-footer .bg-secondary-container {
-  background-color: rgba(193,125,17,0.20) !important;
+/* J. FOOTER — footer navy gelap, konsisten dengan header.
+   CATATAN SPESIFISITAS: utility Tailwind (.bg-surface-container-high = 0,1,0)
+   menyuntik style SETELAH file ini (Play CDN), jadi aturan sama-kuat pasti kalah
+   urutan. Semua selector footer di bawah memakai footer.bg-surface-container-high
+   (0,1,1+) agar menang, dan !important agar beat utility tanpa !important. */
+footer.bg-surface-container-high {
+  background-color: #162035 !important;
+  box-shadow: none !important;
+}
+/* teks utama: periwinkle terang agar terbaca di navy */
+footer.bg-surface-container-high,
+footer.bg-surface-container-high p,
+footer.bg-surface-container-high li {
+  color: rgba(197, 210, 230, 0.82) !important;
+}
+/* CLEAN UP: retint global text-on-surface-variant (ink gelap) tak boleh bocor ke footer */
+footer.bg-surface-container-high .text-on-surface-variant,
+footer.bg-surface-container-high .text-caption-meta {
+  color: rgba(197, 210, 230, 0.72) !important;
+}
+/* judul kolom & eyebrow: emas lembut (muter ke --c-gold-soft) */
+footer.bg-surface-container-high h3,
+footer.bg-surface-container-high .text-secondary {
   color: #FDC84B !important;
-  border: 1px solid rgba(193,125,17,0.30) !important;
+}
+/* nama brand: retint global text-primary = navy gelap → di footer pakai emas */
+footer.bg-surface-container-high .text-primary {
+  color: #FDC84B !important;
+}
+/* tautan indeks bab: periwinkle, hover emas terang (aksen situs) */
+footer.bg-surface-container-high a {
+  color: rgba(197, 210, 230, 0.82) !important;
+}
+footer.bg-surface-container-high a:hover {
+  color: #FDC84B !important;
+}
+/* bullet pemisah • : redup secukupnya */
+footer.bg-surface-container-high .text-outline-variant {
+  color: rgba(197, 210, 230, 0.40) !important;
+}
+/* chip "Pameran Interaktif / Arsip Terbuka": pill transparan + teks emas */
+footer.bg-surface-container-high .bg-surface-container {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: #FDC84B !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+}
+/* chip "Kelompok 4 · Tugas Sejarah": emas di overlay emas */
+footer.bg-surface-container-high .bg-secondary-container {
+  background-color: rgba(193, 125, 17, 0.28) !important;
+  color: #FDC84B !important;
+  border: 1px solid rgba(193, 125, 17, 0.38) !important;
 }
 
 /* K. DARK SIMULATOR (uji.html) — panel text */
