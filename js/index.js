@@ -214,7 +214,7 @@
             '    </button>',
             '  </div>',
             '  <div class="relative overflow-auto p-space-md bg-surface-container flex items-center justify-center">',
-            '    <img src="assets/babad-tanah-jawi.jpg" alt="Manuskrip Iluminasi Emas" class="max-h-[65vh] object-contain rounded shadow-lg"/>',
+            '    <img src="assets/babad-tanah-jawi.webp" alt="Manuskrip Iluminasi Emas" class="max-h-[65vh] object-contain rounded shadow-lg"/>',
             '  </div>',
             '  <div class="p-space-md bg-surface-container-low text-body-sm text-on-surface-variant flex flex-col gap-1">',
             '    <span class="font-semibold text-primary">Inspeksi Filologi:</span>',
