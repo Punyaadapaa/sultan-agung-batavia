@@ -1,4 +1,4 @@
-/* latar.js: Bab 01 - Latar Belakang & Komparasi Mataram vs VOC */
+/* pages/latar.js: Bab 01 - Latar Belakang & Komparasi Mataram vs VOC */
 (function () {
   "use strict";
 

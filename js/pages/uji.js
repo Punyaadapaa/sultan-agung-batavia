@@ -1,4 +1,4 @@
-/* uji.js: Bab 04 - Simulator Keputusan & Quiz Interaktif */
+/* pages/uji.js: Bab 04 - Simulator Keputusan & Quiz Interaktif */
 (function () {
   "use strict";
 

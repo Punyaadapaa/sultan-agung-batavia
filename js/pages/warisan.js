@@ -1,4 +1,4 @@
-/* warisan.js: Bab 03 - Warisan Budaya & Artefak Bersejarah */
+/* pages/warisan.js: Bab 03 - Warisan Budaya & Artefak Bersejarah */
 (function () {
   "use strict";
 

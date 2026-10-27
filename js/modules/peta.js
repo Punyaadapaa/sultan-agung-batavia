@@ -1,4 +1,4 @@
-/* sa-peta.js - Peta interaktif realistis Jawa 1628-1629 (port dari aset standalone, di-retint ke token situs).
+/* modules/peta.js - Peta interaktif realistis Jawa 1628-1629 (port dari aset standalone, di-retint ke token situs).
    UX: wheel biasa = scroll halaman normal; Ctrl+wheel / pinch / tombol +/- / drag = kontrol peta.
    Skrip ini TIDAK persisten: re-init tiap navigasi SPA karena DOM baru. Listener window lama
    dijaga dengan isConnected guard. */

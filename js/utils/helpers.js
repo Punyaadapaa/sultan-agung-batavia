@@ -1,6 +1,5 @@
-/* sa-utils.js: utilitas minimal yang diekspor ke window.SA.
-   Pengganti ringkas untuk util shared.js (generasi desain lama).
-   Dimuat sebelum skrip halaman (index.js, dsb.) dan enhancements.js. */
+/* utils/helpers.js — helper umum diekspor ke window.SA.
+   Sebelumnya js/sa-utils.js. Dimuat sebelum skrip halaman dan modul modul lain. */
 (function () {
   "use strict";
 

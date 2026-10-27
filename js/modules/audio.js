@@ -1,4 +1,4 @@
-/* sa-audio.js: Gamelan Mataram - ambient loop generatif berbasis WebAudio.
+/* modules/audio.js: Gamelan Mataram - ambient loop generatif berbasis WebAudio.
    Tombol header [aria-label="Suasana Gamelan Pelog Mataram"] sebagai saklar.
    Pilihan tersimpan di sessionStorage; saat pindah halaman (MPA reload) musik
    diupayakan lanjut otomatis. Transisi antar halaman dihaluskan dengan

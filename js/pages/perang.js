@@ -1,4 +1,4 @@
-/* perang.js: Bab 02 - Dua Pengepungan & Kronologi Pertempuran */
+/* pages/perang.js: Bab 02 - Dua Pengepungan & Kronologi Pertempuran */
 (function () {
   "use strict";
 

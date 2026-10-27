@@ -1,4 +1,4 @@
-/* index.js: Beranda - peta interaktif rute ekspedisi, glossary, expedition switcher */
+/* pages/index.js: Beranda - peta interaktif rute ekspedisi, glossary, expedition switcher */
 (function () {
   "use strict";
   var SA = window.SA || {};

@@ -920,7 +920,7 @@ img, svg, video, canvas {
 }
 
 /* Global search palette (command palette): mikro-animasi muncul + pecah caret.
-   Panel dibangun di js/enhancements.js; blok ini sekadar polish visual. */
+   Panel dibangun di js/modules/enhancements.js; blok ini sekadar polish visual. */
 #global-search-modal > div {
   animation: searchPop 0.18s cubic-bezier(0.22, 1, 0.36, 1);
 }
